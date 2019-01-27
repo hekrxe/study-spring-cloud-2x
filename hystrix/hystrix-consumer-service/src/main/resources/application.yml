@@ -1,0 +1,3 @@
+feign:
+  hystrix:
+    enabled: true # 是否启用 feign中的断路器

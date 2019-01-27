@@ -1,0 +1,30 @@
+# 配置4个EurekaServer 分4个zone,属于region-east、region-west两个region
+# region-east配置：
+
+server:
+  port: 8761
+
+spring:
+  application:
+    name: ${project.name}
+
+eureka:
+  server:
+    wait-time-in-ms-when-sync-empty: 0
+    enable-self-preservation: false
+    remote-region-urls-with-name:
+      region-west: http://localhost:8763/eureka/
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    region: region-east
+    service-url:
+      zone1: http://localhost:8761/eureka/
+      zone2: http://localhost:8762/eureka/
+    availability-zones:
+      # region-east 有两个 zone
+      region-east: zone1,zone2
+  instance:
+    hostname: localhost
+    # 当前这个zone是zone1
+    metadataMap.zone: zone1

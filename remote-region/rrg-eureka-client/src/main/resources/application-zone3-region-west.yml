@@ -1,0 +1,17 @@
+# 配置4个EurekaClient, 分4个zone,分属region-east、region-west
+server:
+  port: 8073
+spring:
+  application:
+    name: ${project.name}
+eureka:
+  client:
+    prefer-same-zone-eureka: true
+    region: region-west
+    service-url:
+      zone3: http://localhost:8763/eureka/
+      zone4: http://localhost:8764/eureka/
+    availability-zones:
+      region-west: zone3,zone4
+  instance:
+    metadataMap.zone: zone3

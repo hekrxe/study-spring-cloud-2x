@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: ${project.name}
+
+server:
+  port: 5555
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${eureka.host:127.0.0.1}:${eureka.port:8761}/eureka/
+  instance:
+    prefer-ip-address: true
+
+zuul:
+  routes:
+    # 以下三行 将所有/client开头的url映射到 zuul-client-demo
+    zuul-client-demo1:
+      path: /client/**
+      serviceId: zuul-client-demo
+    # 可以简写为:
+#   zuul-client-demo: /client/**
+    # 也可以简写为:
+#   zuul-client-demo:
+    # 等价于
+#   zuul-client-demo:
+#     path: /zuul-client-demo/**
+#     serviceId: zuul-client-demo
+
+# 也可以路由到物理地址 如：
+#    zuul-client-demo2:
+#      path: /client1/**
+#      url: http://127.0.0.1:1212
